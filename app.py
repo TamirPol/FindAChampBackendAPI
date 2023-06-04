@@ -167,4 +167,5 @@ def edit_note(id, date):
     user_.content = request.json('content')
 
     db.session.commit()
-db.create_all()
+with app.app_context():
+    db.create_all()
