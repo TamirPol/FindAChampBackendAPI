@@ -7,13 +7,13 @@ from src.functions import create_account
 from src.notes import create_note
 from src.accounts import Account
 from datetime import datetime
-import random
+
 import hashlib
 from datetime import date
 
 app = flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///master.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////Users/nizcomix/Mushroom Identifier/db/master.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -96,7 +96,7 @@ def login():
         return jsonify({'message': 'Login successful', 'account': account_schema.dump(account)})
     else:
         #invalid
-        return jsonify({'message': 'Invalid username or password'})
+        return jsonify({'message': 'Invalid email or password'})
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -165,6 +165,8 @@ def edit_note(id, date):
     user_ = notes.query.filter_by(author=int(id), date=date)
 
     user_.content = request.json('content')
+
+    db.session.commit()
 
     db.session.commit()
 with app.app_context():
