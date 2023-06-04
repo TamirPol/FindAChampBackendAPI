@@ -107,7 +107,7 @@ def register():
 
     existing_account = account_info.query.filter_by(email=email).first()
     if existing_account:
-        return jsonify({'message': 'Email already exists'})
+        return jsonify({'message': 'Email already exists'}), 400
 
     hashed_password = hashlib.sha512(password.encode('utf-8')).hexdigest()
 
@@ -118,7 +118,15 @@ def register():
     db.session.add(new_account)
     db.session.commit()
 
-    return jsonify({'message': 'User registered successfully'})
+    return jsonify({'message': 'User registered successfully'}), 201
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'error': 'Not found'}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({'error':'Interal server error'}), 500
 
 
 
@@ -153,7 +161,7 @@ def get_author_finds(id):
     return jsonify(results)
 
 @app.route('/edit/<id>/<date>', methods=['POST'])
-def edit_note(id, date):
+def add_note(id, date):
     user_ = notes.query.filter_by(author=int(id), date=date)
 
     user_.content = request.json('content')
