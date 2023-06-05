@@ -142,9 +142,27 @@ def get_author(author):
 def add_note():
     content = request.json['content']
     url = request.json['url']
-    id = request.json['id']
+    author = request.json['author']
+    date = request.json['date']
     
-    create_note(Account.retrieve_info(id), content, url)
+    new_note = notes(content=content, url=url, author=author, date=date)
+    db.session.add(new_note)
+    db.session.commit()
+    
+    return jsonify({'message': 'Note added successfully'}), 201
+
+@app.route('/finds/add/', methods=['POST'])
+def add_find():
+    species = request.json['species']
+    url = request.json['url']
+    id = request.json['id']
+    found = request.json['found']
+    
+    new_find = finds(species=species, url=url, id=id, found=found)
+    db.session.add(new_find)
+    db.session.commit()
+    
+    return jsonify({'message': 'Note added successfully'}), 201
 
 @app.route('/accounts/get/<id>', methods=['GET'])
 def get_account(id):
@@ -163,11 +181,8 @@ def get_author_finds(id):
 @app.route('/edit/<id>/<date>', methods=['POST'])
 def edit_note(id, date):
     user_ = notes.query.filter_by(author=int(id), date=date)
-
-    user_.content = request.json('content')
-
+    user_.content = request.json['content']
     db.session.commit()
-
-    db.session.commit()
+    
 with app.app_context():
     db.create_all()
