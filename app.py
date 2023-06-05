@@ -48,7 +48,7 @@ class notes(db.Model):
     content = db.Column(db.Text)
     url = db.Column(db.Text, primary_key=True)
     author = db.Column(db.Integer)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.String)
 
     def __init__(self, content, url, author, date):
         self.content = content
@@ -67,7 +67,7 @@ notes_schema = NotesSchema(many=True)
 class finds(db.Model):
     id = db.Column(db.Integer)
     url = db.Column(db.String)
-    found = db.Column(db.DateTime, primary_key=True)
+    found = db.Column(db.String, primary_key=True)
     species = db.Column(db.String)
 
     def __init__(self, id, url, found, species):
