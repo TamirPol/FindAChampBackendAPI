@@ -2,6 +2,8 @@
 account creation functions
 '''
 
+# written by khalid
+
 from datetime import datetime
 from .exceptions import InvalidDateOfBirth, NotOldEnough, UsernameNotRightLength, EmailNotProper
 from random import randint
@@ -19,6 +21,7 @@ __all__ = (
     'create_note'
 )
 
+#niz
 EMAIL_REGEX = r"[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}"
 
 # Sources for regex help:
@@ -27,6 +30,7 @@ EMAIL_REGEX = r"[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}"
 
 email_regex = re.compile(EMAIL_REGEX)
 
+#khalid
 def dob_creator(mm, dd, yyyy):
     """
     Checks if a valid date of birth has been entered
@@ -43,6 +47,7 @@ def dob_creator(mm, dd, yyyy):
     else:
         return datetime(*map(int, [yyyy, mm, dd]))
     
+ #khalid
 def create_account(username: str, password: str, email: str, mm: int, dd: int, yyyy: int):
     """
     Creates an account.
@@ -92,6 +97,7 @@ def create_account(username: str, password: str, email: str, mm: int, dd: int, y
     conn.commit()
     conn.close()
 
+ #niz
 def store_find(author: int, url: str, species: str):
     conn = sqlite3.connect("db/master.db")
     cursor = conn.cursor()
