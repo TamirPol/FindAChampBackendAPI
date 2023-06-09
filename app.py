@@ -83,6 +83,7 @@ class FindSchema(ma.Schema):
 find_schema = FindSchema()
 finds_schema = FindSchema(many=True)
 
+#login endpoint
 @app.route('/login', methods=['POST'])
 def login():
     email = request.json.get('email')
@@ -98,6 +99,7 @@ def login():
         #invalid
         return jsonify({'message': 'Invalid email or password'})
 
+#register endpoint
 @app.route('/register', methods=['POST'])
 def register():
     account_name = request.json.get('username')
@@ -185,4 +187,5 @@ def edit_note(id, date):
     db.session.commit()
     
 with app.app_context():
+    #if missing table
     db.create_all()
