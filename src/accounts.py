@@ -56,6 +56,7 @@ class Account:
 
     @classmethod
     def retrieve_info(cls, id: int):
+        # by khalid
         conn = sqlite3.connect('db/master.db')
         cursor = conn.cursor()
 
