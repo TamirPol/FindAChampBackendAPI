@@ -48,7 +48,6 @@ def dob_creator(mm, dd, yyyy):
     else:
         return datetime(*map(int, [yyyy, mm, dd]))
     
- #khalid
 def create_account(username: str, password: str, email: str, mm: int, dd: int, yyyy: int):
     """
     Creates an account.
@@ -60,7 +59,6 @@ def create_account(username: str, password: str, email: str, mm: int, dd: int, y
     Returns:
         None
     """
-    # written by: khalid (upto L77)
     conn = sqlite3.connect('db/master.db')
     cursor = conn.cursor()
 
@@ -71,7 +69,7 @@ def create_account(username: str, password: str, email: str, mm: int, dd: int, y
     if not (6 <= len(username) <= 20):
         raise UsernameNotRightLength()
 
-    # written by niz (upto L86)
+    # niz (upto L89)
     date = dob_creator(int(mm), int(dd), int(yyyy))
 
     if not ((datetime.now() - date).days / 365) >= 13:
@@ -90,7 +88,7 @@ def create_account(username: str, password: str, email: str, mm: int, dd: int, y
         id = id()
         res(id)
     
-    # khalid (until L94)
+    # khalid
     cursor.execute(
         'INSERT INTO account_info (account_name, password, email, dob, id) VALUES (?, ?, ?, ?, ?)',
         (username, password_hashed, email, date, id))
@@ -107,7 +105,9 @@ def store_find(author: int, url: str, species: str):
 
     conn.commit()
     conn.close()
-
+    
+   
+#Khalid
 class Password:
     def __init__(self, hash_algorithm = 'sha512'):
         self.hash_algorithm = hash_algorithm
