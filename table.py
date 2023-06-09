@@ -1,5 +1,5 @@
 #*! table.py v1.0 June 1 2023
-#Khalid
+# Khalid
 
 import sqlite3
 
