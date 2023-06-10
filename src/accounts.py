@@ -56,7 +56,7 @@ class Account:
 
     @classmethod
     def retrieve_info(cls, id: int):
-         """
+        """
         Initializes class from id
         Args:
             id: int
@@ -68,7 +68,6 @@ class Account:
         cursor = conn.cursor()
 
         cursor.execute('SELECT account_name, password, email, dob, id FROM account_info WHERE id = ?', (id,))
-       
         data = cursor.fetchone()
         
         conn.close()
@@ -92,7 +91,6 @@ class Account:
         password_hashed = hash.hashing(password)
 
         cursor.execute('SELECT account_name, password, email, dob, id FROM account_info WHERE account_name=? AND password=?', (account_name, password_hashed))
-       
         data = cursor.fetchone()
         
         conn.close()
